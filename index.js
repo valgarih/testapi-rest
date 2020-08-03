@@ -12,22 +12,22 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //Read all files to DB
-app.get('/api/restaurants', (req, res) =>{
-    Restaurant.find({}, (err, restaurant)=>{
-        if(err) return res.status(500).send({message: `Error al ver la informacion ${err}`})
-        if(!restaurant) return res.status(404).send({message: `No existe información `})
-        res.status(200).send({restaurant})
+app.get('/api/restaurants', (req, res) => {
+    Restaurant.find({}, (err, restaurant) => {
+        if (err) return res.status(500).send({ message: `Error al ver la informacion ${err}` })
+        if (!restaurant) return res.status(404).send({ message: `No existe información ` })
+        res.status(200).send({ restaurant })
     })
 
 })
 
 //Read one file to DB by ID 
-app.get('/api/restaurants/:id', (req, res) =>{
+app.get('/api/restaurants/:id', (req, res) => {
     let id = req.params.id
-    Restaurant.findById(id, (err,restaurant) => {
-        if(err) return res.status(500).send({message: `Error al ver la informacion ${err}`})
-        if(!restaurant) return res.status(404).send({message: `No existe ese ID en la base de datos`})
-        res.status(200).send({"restaurant": restaurant})
+    Restaurant.findById(id, (err, restaurant) => {
+        if (err) return res.status(500).send({ message: `Error al ver la informacion ${err}` })
+        if (!restaurant) return res.status(404).send({ message: `No existe ese ID en la base de datos` })
+        res.status(200).send({ "restaurant": restaurant })
     })
 })
 
@@ -138,14 +138,18 @@ app.get('/api/restaurants/statistics', async (req, res) => {
 
 })
 
+
 //Conection to the DB 
-mongoose.connect('mongodb+srv://valery:MARIOteamo0509@cluster0.bh8pl.mongodb.net/restaurants?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
-    if (err) throw err
-    console.log('Conexión a la base de datos establecida .. ')
+mongoose.connect('mongodb+srv://valery:MARIOteamo0509@cluster0.bh8pl.mongodb.net/restaurants?retryWrites=true&w=majority', { useNewUrlParser: true })
+    .then(db => console.log('DB connected'))
+    .catch(err => console.log(err))
 
-    app.listen(port, () => {
-        console.log(`API REST corriendo en http://localhost:${port}`)
-    })
+// mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
+//     if (err) throw err
+//     console.log('Conexión a la base de datos establecida .. ')
 
+// })
+app.listen(port, () => {
+    console.log(`API REST corriendo en http://localhost:${port}`)
 })
 
