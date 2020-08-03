@@ -139,7 +139,7 @@ app.get('/api/restaurants/statistics', async (req, res) => {
 })
 
 //Conection to the DB 
-mongoose.connect('mongodb://localhost:27017/restaurants', { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
+mongoose.connect('mongodb+srv://valery:MARIOteamo0509@cluster0.bh8pl.mongodb.net/restaurants?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
     if (err) throw err
     console.log('Conexión a la base de datos establecida .. ')
 
